@@ -221,7 +221,7 @@ module Deployinator
 
     def send_email(options)
       if Pony.options.keys.count == 0 
-        log_and_stream "Pony not configuration; not sending mail."
+        log_and_stream "Pony not configured; not sending mail."
       else 
         Pony.mail(options)
       end 
