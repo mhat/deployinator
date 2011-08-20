@@ -127,6 +127,10 @@ module Deployinator
       "http://#{Deployinator.hostname}/diff/#{stack}/#{old_build}/#{new_build}"
     end
 
+    def stacks 
+      @stacks ||= ['demo1', 'demo2']
+    end
+
     def stack
       @stack
     end
@@ -382,11 +386,19 @@ module Deployinator
       end
     end
 
+    def stacks_and_environments
+      stacks.map do |stack|
+        @stack = stack 
+        environments
+      end.flatten
+    end
+
     def environments
       custom_env = "#{stack}_environments"
       envs = send(custom_env) if respond_to?(custom_env.to_sym)
       envs ||=
       [{
+        :stack           => stack,
         :name            => "production",
         :title           => "Deploy #{stack} production",
         :method          => "#{stack}_production",

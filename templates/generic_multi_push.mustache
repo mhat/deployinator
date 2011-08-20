@@ -1,0 +1,51 @@
+<aside class="pushers">
+{{#stacks_and_environments}}
+    <div class="stack-box">
+        <h2><span>{{number}}</span>{{title}}</h2>
+        <form action="/dispatch" method="post">
+            <input type="hidden" name="method" value="{{method}}">
+            <input type="hidden" name="stack" value="{{stack}}">
+            
+            <p class="stack-status">
+                c:{{current_version}}
+                <a href="/diff/{{stack}}/{{current_version}}/{{next_build}}" target="_blank">
+                    <span class="{{stack}}_{{name}}_current_build">{{current_build}}</span>
+                    &rarr;
+                    <span class="{{stack}}_{{name}}_next_build">{{next_build}}</span>
+                </a>
+            </p>
+            <p class="stack-push"><button class="button {{#disabled}} button-disabled" disabled="disabled{{/disabled}}" type="submit">Deploy {{name}}</button></p>
+        </form>
+        {{#not_last}}
+        <span class="arrow"></span>
+        {{/not_last}}
+    </div>
+{{/stacks_and_environments}}
+
+</aside>
+
+<section id="main" class="info">
+    <!-- heading -->
+    <div class="heading clearfix">
+        <h2>Info</h2>
+        <span class="option">
+            {{< scroll_control }}
+        </span>
+    </div>
+    
+    <!-- topic -->
+    <div class="push-topic">
+        <div class="title"></div>
+        <span class="log-run">
+            <form action="/run_logs">
+                <button class="button small" type="submit">See run logs</button>
+            </form>
+        </span>
+    </div>
+
+    <!-- log -->
+    <div class="log-main">
+        {{< log }}
+    </div>
+
+</section>

@@ -18,8 +18,7 @@ module Deployinator
     end
 
     get '/' do
-      @stack = "demo"
-      mustache @stack
+      mustache 'generic_multi_push'
     end
 
     get '/log.txt' do
